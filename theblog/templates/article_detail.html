@@ -6,7 +6,7 @@
     <small>{{ post.post_date }}</small>
     <br/>
     
-    {% if user.is_authenticated %}
+    {% if user.username == 'modelflick' %}
     <a href="{% url 'update_post' post.pk %}">Edit post</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="{% url 'delete_post' post.pk %}">Delete post</a>
     {% endif %}
