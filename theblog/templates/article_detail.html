@@ -2,6 +2,7 @@
 {% block title %}{{ post.title_tag }}{% endblock %}
 {% block content %}
     <h1>{{ post.title }}</h1>
+    <a href="{% url 'update_post' post.pk %}">Edit post</a>
     <small>{{ post.author }}</small>
     <br/>
 
