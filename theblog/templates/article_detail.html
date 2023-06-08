@@ -3,6 +3,7 @@
 {% block content %}
     <h1>{{ post.title }}</h1>
     <a href="{% url 'update_post' post.pk %}">Edit post</a>
+    <a href="{% url 'delete_post' post.pk %}">Delete post</a>
     <small>{{ post.author }}</small>
     <br/>
 
