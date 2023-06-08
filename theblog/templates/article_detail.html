@@ -2,15 +2,20 @@
 {% block title %}{{ post.title_tag }}{% endblock %}
 {% block content %}
     <h1>{{ post.title }}</h1>
+    <small> Written by {{ post.author }}, Dated</small>
+    <small>{{ post.post_date }}</small>
     <br/>
-    <h2>{{ post.post_date }}</h2>
-    <a href="{% url 'update_post' post.pk %}">Edit post</a>
+    
+    {% if user.is_authenticated %}
+    <a href="{% url 'update_post' post.pk %}">Edit post</a>&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="{% url 'delete_post' post.pk %}">Delete post</a>
-    <small>{{ post.author }}</small>
-    <br/>
+    {% endif %}
 
-    {{ post.body }}
+    <br/><br/>
+    
 
-    <br/>
+    {{ post.body|safe }}
+
+    <br/><br/><br/>
     <a  href="{% url 'home' %}" class="btn btn-secondary" type = button >Back</a>
 {% endblock %}
