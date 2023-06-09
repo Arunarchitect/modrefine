@@ -2,12 +2,44 @@
 {% block title %}{{ post.title_tag }}{% endblock %}
 {% block content %}
     <h1>{{ post.title }}</h1>
-    <a href="{% url 'update_post' post.pk %}">Edit post</a>
-    <small>{{ post.author }}</small>
+    <small> Written by {{ post.author }}, Dated</small>
+    <small>{{ post.post_date }}</small>
     <br/>
+    
+    {% if user.username == 'modelflick' %}
+    <a href="{% url 'update_post' post.pk %}">Edit post</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'delete_post' post.pk %}">Delete post</a>
+    {% endif %}
 
-    {{ post.body }}
+    <br/><br/>
+    
 
-    <br/>
+    {{ post.body|safe }}
+
+    <br/><br/><br/>
     <a  href="{% url 'home' %}" class="btn btn-secondary" type = button >Back</a>
+
+    <br/>
+    <hr>
+    <br/>
+
+    <form action="{% url 'like_post' post.pk %}" method="POST">
+        
+        {% csrf_token %}
+        {{ total_likes }} Likes
+        <br/>
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger btn-sm">Unlike</button>
+            {% else %}
+                <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary btn-sm">Like</button>
+            {% endif %}
+            
+        {% else %}
+        <br/>
+        <small>Please <a href="{% url 'login' %}">login</a>  to like this Post</small>
+        {% endif %}
+        
+    </form>
+
 {% endblock %}
